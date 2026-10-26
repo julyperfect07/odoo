@@ -1,0 +1,12 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start database",
+            "type": "shell",
+            "command": "powershell -ExecutionPolicy Bypass -File \"${workspaceFolder}\\start-db.ps1\"",
+            "presentation": { "reveal": "silent" },
+            "problemMatcher": []
+        }
+    ]
+}

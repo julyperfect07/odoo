@@ -1,0 +1,15 @@
+{
+    "python.defaultInterpreterPath": "${workspaceFolder}\\venv\\Scripts\\python.exe",
+    "python.analysis.extraPaths": ["${workspaceFolder}\\odoo"],
+    "python.analysis.exclude": ["**/pgsql", "**/pgdata", "**/venv"],
+    "files.watcherExclude": {
+        "**/pgsql/**": true,
+        "**/pgdata/**": true,
+        "**/venv/**": true
+    },
+    "search.exclude": {
+        "**/pgsql": true,
+        "**/pgdata": true,
+        "**/venv": true
+    }
+}

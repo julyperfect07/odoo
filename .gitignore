@@ -1,0 +1,7 @@
+odoo/
+venv/
+pgsql/
+pgdata/
+*.log
+__pycache__/
+*.pyc

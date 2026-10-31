@@ -1,8 +1,8 @@
 from odoo import models, fields
 
 
-class propery(models.Model):
-    _name = 'property'
+class property(models.Model):
+    _name = "property"
 
     name = fields.Char()
     description = fields.Text()
@@ -16,9 +16,11 @@ class propery(models.Model):
     garage = fields.Boolean()
     garden = fields.Boolean()
     garden_area = fields.Integer()
-    garden_orientation = fields.Selection([
-        ('north' , 'North'),
-        ('south' , 'South'),
-        ('east' , 'East'),
-        ('west' , 'West'),
-    ])
+    garden_orientation = fields.Selection(
+        [
+            ("north", "North"),
+            ("south", "South"),
+            ("east", "East"),
+            ("west", "West"),
+        ]
+    )

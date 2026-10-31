@@ -2,4 +2,4 @@ from odoo import models
 
 class modelD(models.Model):
     _name = 'model.d'
-    _log_access : False
+    _log_access = False

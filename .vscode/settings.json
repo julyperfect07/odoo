@@ -11,5 +11,15 @@
         "**/pgsql": true,
         "**/pgdata": true,
         "**/venv": true
-    }
+    },
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.formatOnSave": true
+    },
+    "[xml]": {
+        "editor.defaultFormatter": "redhat.vscode-xml",
+        "editor.formatOnSave": true
+    },
+    "xml.format.splitAttributes": "preserve",
+    "xml.format.maxLineWidth": 0
 }

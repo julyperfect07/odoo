@@ -18,6 +18,7 @@ class property(models.Model):
     garage = fields.Boolean()
     garden = fields.Boolean()
     garden_area = fields.Integer()
+    owner_id = fields.Many2one("owner")
     garden_orientation = fields.Selection(
         [
             ("north", "North"),
@@ -39,31 +40,31 @@ class property(models.Model):
             if rec.bedrooms <= 0:
                 raise ValidationError("Please add a valid value")
 
-    # Create
-    @api.model_create_multi
-    def create(self, vals):
-        res = super().create(vals)
-        print("Inside create method ")
-        return res
+    # # Create
+    # @api.model_create_multi
+    # def create(self, vals):
+    #     res = super().create(vals)
+    #     print("Inside create method ")
+    #     return res
 
-    # Read
-    @api.model
-    def _search(self, domain, offset=0, limit=None, order=None, access_rights_uid=None):
-        res = super()._search(
-            domain, offset=0, limit=None, order=None, access_rights_uid=None
-        )
+    # # Read
+    # @api.model
+    # def _search(self, domain, offset=0, limit=None, order=None, access_rights_uid=None):
+    #     res = super()._search(
+    #         domain, offset=0, limit=None, order=None, access_rights_uid=None
+    #     )
 
-        print("Inside Read")
-        return res
+    #     print("Inside Read")
+    #     return res
 
-    # Update
-    def write(self, vals):
-        res = super().write(vals)
-        print("Inside Write")
-        return res
+    # # Update
+    # def write(self, vals):
+    #     res = super().write(vals)
+    #     print("Inside Write")
+    #     return res
 
-    # Delete
-    def unlink(self):
-        res = super().unlink()
-        print("Inside Delete")
-        return res
+    # # Delete
+    # def unlink(self):
+    #     res = super().unlink()
+    #     print("Inside Delete")
+    #     return res

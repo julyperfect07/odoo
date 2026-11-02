@@ -1,4 +1,5 @@
 <odoo>
     <menuitem id="real_estate_root_menu" name="Real Estate" />
     <menuitem id="property_menu" name="Properties" parent="real_estate_root_menu" />
+    <menuitem id="configuration_menu" name="configuration" parent="real_estate_root_menu" />
 </odoo>

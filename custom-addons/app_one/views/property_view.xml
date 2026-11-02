@@ -8,6 +8,9 @@
                 <field name="date_availability" />
                 <field name="selling_price" />
                 <field name="garden" />
+                <field name="facades" />
+                <field name="garden_area" />
+                <field name="postcode" />
             </tree>
         </field>
     </record>
@@ -30,7 +33,7 @@
                             <field name="date_availability" />
                             <field name="postcode" />
                             <field name="expected_price" />
-                            <fields name="selling_price" />
+                            <field name="selling_price" />
                             <field name="bedrooms" />
                             <field name="living_area" />
                             <field name="facades" />
@@ -40,11 +43,30 @@
                             <field name="garden_area" />
                             <field name="garden_orientation" />
                             <field name="garage" />
+                            <field name="description" required="1" />
 
                         </group>
                     </group>
+
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <record id="property_tree_search" model="ir.ui.view">
+        <field name="name">property search</field>
+        <field name="model">property</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="postcode" />
+
+                <filter name="is_garden" string="With Garden" domain="[('garden', '=', True)]" />
+                <filter name="is_not_garden" string="Without Garden" domain="[('garden', '=', False)]" />
+                <filter name="is_garage" string="With Garage" domain="[('garage', '=', True)]" />
+
+                <filter name="group_garden" string="Garden" context="{'group_by': 'garden'}" />
+            </search>
         </field>
     </record>
     <record id="property_action" model="ir.actions.act_window">

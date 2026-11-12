@@ -13,12 +13,12 @@
             "justMyCode": false
         },
         {
-            "name": "Odoo 17 (upgrade estate module)",
+            "name": "Odoo 17 (upgrade app_one module)",
             "type": "debugpy",
             "request": "launch",
             "python": "${workspaceFolder}\\venv\\Scripts\\python.exe",
             "program": "${workspaceFolder}\\odoo\\odoo-bin",
-            "args": ["-c", "${workspaceFolder}\\odoo.conf", "--dev=xml", "-u", "estate"],
+            "args": ["-c", "${workspaceFolder}\\odoo.conf", "--dev=xml", "-u", "app_one"],
             "preLaunchTask": "Start database",
             "console": "integratedTerminal",
             "justMyCode": false

@@ -28,6 +28,7 @@ class property(models.Model):
         ],
         default="north",
     )
+    tag_ids = fields.Many2many("tag")
 
     _sql_constraints = [  # noqa: RUF012
         # constraint name , constraint(column), error message

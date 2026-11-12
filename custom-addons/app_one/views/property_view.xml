@@ -45,6 +45,8 @@
                             <field name="garden_orientation" />
                             <field name="garage" />
                             <field name="description" required="1" />
+                            <field name="tag_ids" widget='many2many_tags' />
+
 
                         </group>
                     </group>

@@ -138,13 +138,36 @@ Claude keeps this file up to date: add a new lesson entry at the end after each 
   - `th:nth-child(2)` targets one specific column, e.g. to set its width
   - Odoo's own styles are strong, so `!important` is often needed to override them
 - Changing the manifest (adding `assets`) needs `-u app_one`
-- After CSS changes, hard-refresh the browser (Ctrl+Shift+R); in dev mode use `--dev=assets` so assets aren't cached
+- After CSS changes, hard-refresh the browser (Ctrl+Shift+R), or open the UI with `?debug=assets` in the URL so assets are not minified or cached (slower, so only use it while working on CSS). Note: `--dev=assets` is not an Odoo 17 option and does nothing
+
+## Lesson 12: Model inheritance and view inheritance (2026-11-19)
+
+- Depending on other apps: `"depends": ["base", "sale_management", "account"]`
+  - Odoo 17 Community has no `account_accountant` (that module is Enterprise only)
+- Model inheritance (Odoo's own kind; a model class always extends `models.Model` in Python, but that part isn't the inheritance being taught here):
+  - **Extension**: `_inherit = "sale.order"` with no `_name`
+    - Adds fields and methods to the existing model and its table
+    - `property_id = fields.Many2one("property")` adds a `property_id` column (integer + foreign key) to `sale_order`
+  - **Classical (prototype)**: `_name = "client"` + `_inherit = "owner"`
+    - Creates a new model with its own table that copies the parent's fields and methods
+  - **Delegation**: `_inherits = {"sale.order": "order_id"}` links to a parent record and shows its fields
+- Overriding a method and calling the original with `super()`:
+  - `def action_confirm(self): res = super().action_confirm(); ...; return res`
+  - Always return what `super()` returned
+  - `print()` output goes to the server terminal, not the browser
+- Import every new model file in `models/__init__.py`, or Odoo never loads it
+- View inheritance: an `ir.ui.view` record with `inherit_id` pointing at the parent view
+  - `<field name="inherit_id" ref="sale.view_order_form" />` (`module.xml_id`)
+  - Inside `arch`, find an element and set `position`: `<field name="partner_id" position="after">`
+  - `position` can be `after`, `before`, `inside`, `replace` or `attributes`
+- A new XML file in `data` (or a new field) needs `-u app_one`; `--dev=xml` alone doesn't load it
 
 ---
 
 ## Dev workflow lessons (from working with Claude)
 
 - Views live in the database: after editing XML, upgrade with `-u app_one`, or run with `--dev=xml`
+  - `--dev=xml` only re-reads views that are already installed; a new XML file or a new view record needs `-u app_one` (adding new fields needs it too)
 - New or changed fields need a module upgrade
   - Otherwise you get `psycopg2.errors.UndefinedColumn: column ... does not exist`
 - Dev mode command: `.\start-odoo.ps1 -u app_one '--dev=xml,reload'`
@@ -155,3 +178,8 @@ Claude keeps this file up to date: add a new lesson entry at the end after each 
 - Formatting:
   - Prettier formats XML and Markdown (`npm run format`)
   - Ruff formats Python on save
+- Depending on other modules (`"depends": [...]` in the manifest):
+  - This setup is Odoo 17 Community, so Enterprise-only modules like `account_accountant` don't exist; use `account` instead
+  - If a dependency is missing, Odoo skips the whole module and the UI breaks with "Missing model ..."
+  - "Update Apps List" only finds modules; upgrading the module (`-u app_one`) installs the new dependencies
+  - Run that upgrade without `reload` (`.\start-odoo.ps1 -u app_one '--dev=xml'`), or the auto-reload restarts Odoo mid-install and drops `-u`

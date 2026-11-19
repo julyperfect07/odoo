@@ -1,1 +1,1 @@
-from . import owner, property, tag
+from . import owner, property, tag, sale_order

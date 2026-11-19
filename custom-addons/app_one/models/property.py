@@ -10,8 +10,9 @@ class property(models.Model):
     description = fields.Text()
     postcode = fields.Char(required=1)
     date_availability = fields.Date()
-    expected_price = fields.Float(digits=(0, 4))
+    expected_price = fields.Float()
     selling_price = fields.Float()
+    diff = fields.Float(compute="_compute_diff", store=1, readonly=0)
     bedrooms = fields.Integer()
     living_area = fields.Integer()
     facades = fields.Integer()
@@ -48,6 +49,40 @@ class property(models.Model):
         for rec in self:
             if rec.bedrooms <= 0:
                 raise ValidationError("Please add a valid value")
+
+    def action_draft(self):
+        for rec in self:
+            rec.state = "draft"
+
+    def action_pending(self):
+        for rec in self:
+            rec.state = "pending"
+
+    def action_sold(self):
+        for rec in self:
+            rec.state = "sold"
+
+    # it can be triggred from the local fields views and other realtion
+    # returns real record
+    @api.depends("expected_price", "selling_price", "owner_id.phone")
+    def _compute_diff(self):
+        for rec in self:
+            rec.diff = rec.expected_price - rec.selling_price
+
+    # it can be triggred from the local fields views
+    # returns sudeo record
+    @api.onchange("expected_price")
+    def _onchange_expected_price(self):
+        for rec in self:
+            print("inside onchange")
+
+            return {
+                "warning": {
+                    "title": "warning",
+                    "message": "negative value",
+                    "type": "notification",
+                }
+            }
 
     # # Create
     # @api.model_create_multi

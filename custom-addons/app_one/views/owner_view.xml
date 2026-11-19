@@ -28,18 +28,11 @@
                 </sheet>
             </form>
         </field>
-
     </record>
 
     <record id='owner_action' model='ir.actions.act_window'>
         <field name='name'>Owners</field>
         <field name='res_model'>owner</field>
-
     </record>
-    <menuitem
-        id='owner_menu_item'
-        name='Owners'
-        parent='configuration_menu'
-        action='owner_action'
-    />
+    <menuitem id='owner_menu_item' name='Owners' parent='configuration_menu' action='owner_action' />
 </odoo>

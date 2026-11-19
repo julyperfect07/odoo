@@ -1,0 +1,26 @@
+{
+  "name": "odoo",
+  "version": "1.0.0",
+  "description": "Odoo 17 dev workspace",
+  "scripts": {
+    "format": "prettier --write custom-addons \"**/*.md\"",
+    "format:check": "prettier --check custom-addons \"**/*.md\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/julyperfect07/odoo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/julyperfect07/odoo/issues"
+  },
+  "homepage": "https://github.com/julyperfect07/odoo#readme",
+  "devDependencies": {
+    "@prettier/plugin-xml": "^3.4.2",
+    "prettier": "^3.10.1"
+  },
+  "private": true
+}

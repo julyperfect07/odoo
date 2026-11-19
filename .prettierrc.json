@@ -1,0 +1,11 @@
+{
+  "plugins": ["@prettier/plugin-xml"],
+  "printWidth": 120,
+  "tabWidth": 4,
+  "xmlWhitespaceSensitivity": "ignore",
+  "xmlSelfClosingSpace": true,
+  "endOfLine": "auto",
+  "overrides": [
+    { "files": ["*.json", "*.md"], "options": { "tabWidth": 2 } }
+  ]
+}

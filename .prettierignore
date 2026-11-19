@@ -1,0 +1,6 @@
+odoo/
+venv/
+pgsql/
+pgdata/
+node_modules/
+package-lock.json

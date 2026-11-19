@@ -5,7 +5,6 @@
         <field name='arch' type='xml'>
             <tree>
                 <field name='name' />
-
             </tree>
         </field>
     </record>
@@ -22,18 +21,11 @@
                 </sheet>
             </form>
         </field>
-
     </record>
 
     <record id='tag_action' model='ir.actions.act_window'>
         <field name='name'>Tag</field>
         <field name='res_model'>tag</field>
-
     </record>
-    <menuitem
-        id='tag_menu_item'
-        name='Tags'
-        parent='configuration_menu'
-        action='tag_action'
-    />
+    <menuitem id='tag_menu_item' name='Tags' parent='configuration_menu' action='tag_action' />
 </odoo>

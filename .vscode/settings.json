@@ -17,9 +17,15 @@
         "editor.formatOnSave": true
     },
     "[xml]": {
-        "editor.defaultFormatter": "redhat.vscode-xml",
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.formatOnSave": true
     },
-    "xml.format.splitAttributes": "preserve",
-    "xml.format.maxLineWidth": 0
+    "[markdown][json][jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "prettier.requireConfig": true,
+    "emmet.includeLanguages": { "xml": "html" },
+    "emmet.showExpandedAbbreviation": "always",
+    "xml.completion.autoCloseTags": true
 }

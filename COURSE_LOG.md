@@ -126,6 +126,20 @@ Claude keeps this file up to date: add a new lesson entry at the end after each 
     - Can return `{'warning': {'title': ..., 'message': ..., 'type': 'notification'}}` to show a pop-up
 - Controlling the state flow with buttons instead of letting the user click the statusbar (`clickable` removed)
 
+## Lesson 11: Custom CSS with assets (2026-11-19)
+
+- Put CSS files in `static/src/css/` inside the module
+- Register them in the manifest with an `assets` bundle:
+  - `"assets": {"web.assets_backend": ["app_one/static/src/css/property.css"]}`
+  - `web.assets_backend` is the bundle used by the backend (the normal Odoo UI)
+  - Write paths with forward slashes, starting with the module name
+- Give a view a CSS class, e.g. `<tree class="header_custom">`, and target it from the CSS
+  - `.header_custom table thead > tr > th { ... }` styles the list's header cells
+  - `th:nth-child(2)` targets one specific column, e.g. to set its width
+  - Odoo's own styles are strong, so `!important` is often needed to override them
+- Changing the manifest (adding `assets`) needs `-u app_one`
+- After CSS changes, hard-refresh the browser (Ctrl+Shift+R); in dev mode use `--dev=assets` so assets aren't cached
+
 ---
 
 ## Dev workflow lessons (from working with Claude)

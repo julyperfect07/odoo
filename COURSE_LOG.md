@@ -101,7 +101,7 @@ Claude keeps this file up to date: add a new lesson entry at the end after each 
 - Form view `<header>` with `<field name="state" widget="statusbar"/>`
   - `options="{'clickable': 1}"` lets users click a stage to change it (I removed this in Lesson 10)
 
-## Lesson 10: Header buttons, computed fields, depends vs onchange (2026-11-19)
+## Lesson 10: Header buttons, computed fields, depends vs onchange (`f1415eb`, 2026-11-19)
 
 - Buttons in the `<header>`: `<button name="action_draft" type="object" class="btn-primary" string="..."/>`
   - `type="object"` calls the Python method with that `name`
@@ -126,7 +126,7 @@ Claude keeps this file up to date: add a new lesson entry at the end after each 
     - Can return `{'warning': {'title': ..., 'message': ..., 'type': 'notification'}}` to show a pop-up
 - Controlling the state flow with buttons instead of letting the user click the statusbar (`clickable` removed)
 
-## Lesson 11: Custom CSS with assets (2026-11-19)
+## Lesson 11: Custom CSS with assets (`988f5ee`, 2026-11-19)
 
 - Put CSS files in `static/src/css/` inside the module
 - Register them in the manifest with an `assets` bundle:
@@ -140,7 +140,7 @@ Claude keeps this file up to date: add a new lesson entry at the end after each 
 - Changing the manifest (adding `assets`) needs `-u app_one`
 - After CSS changes, hard-refresh the browser (Ctrl+Shift+R), or open the UI with `?debug=assets` in the URL so assets are not minified or cached (slower, so only use it while working on CSS). Note: `--dev=assets` is not an Odoo 17 option and does nothing
 
-## Lesson 12: Model inheritance and view inheritance (2026-11-19)
+## Lesson 12: Model inheritance and view inheritance (`f2c0dc3`, 2026-11-19)
 
 - Depending on other apps: `"depends": ["base", "sale_management", "account"]`
   - Odoo 17 Community has no `account_accountant` (that module is Enterprise only)
@@ -161,6 +161,22 @@ Claude keeps this file up to date: add a new lesson entry at the end after each 
   - Inside `arch`, find an element and set `position`: `<field name="partner_id" position="after">`
   - `position` can be `after`, `before`, `inside`, `replace` or `attributes`
 - A new XML file in `data` (or a new field) needs `-u app_one`; `--dev=xml` alone doesn't load it
+
+## Lesson 13: Related fields (2026-11-28)
+
+- A related field shows a field of a linked record directly on this model:
+  - `owner_phone = fields.Char(related="owner_id.phone")`
+  - `owner_address = fields.Char(related="owner_id.address")`
+  - The path starts with a Many2one on this model (`owner_id`), then the field on the other model (`phone`)
+  - The field type must match the target field (`phone` is a `Char`, so `owner_phone` is a `Char`)
+- Pick the owner in the form and the phone and address fill in at once, before you save
+- By default a related field:
+  - is **not stored** (`store=False`): no column of its own, and the value is read from the owner each time
+    - Turning a plain field into a related field leaves its old column in the database. Odoo never drops columns; it just stops using them.
+  - is **read-only**
+- With `readonly=False` (my code writes `readonly=0`), editing the phone on the property **writes it back to the owner record**, so every property of that owner changes too
+- Add `store=True` if you need to search, group or sort by it
+- Changing a field to a related field is a Python change, so restart with `-u app_one`
 
 ---
 

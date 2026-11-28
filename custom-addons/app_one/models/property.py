@@ -20,6 +20,8 @@ class property(models.Model):
     garden = fields.Boolean()
     garden_area = fields.Integer()
     owner_id = fields.Many2one("owner")
+    owner_phone = fields.Char(related="owner_id.phone", readonly=0)
+    owner_address = fields.Char(related="owner_id.address", readonly=0)
     garden_orientation = fields.Selection(
         [
             ("north", "North"),

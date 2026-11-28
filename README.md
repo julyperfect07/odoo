@@ -13,16 +13,16 @@
 
 Start Odoo (also starts the database):
 
-    C:\Users\abdallah\odoo\start-odoo.ps1
+    C:\Users\User\odoo\start-odoo.ps1
 
 Then open http://localhost:8069 and sign in with `admin` / `admin`.
 Stop Odoo with Ctrl+C. To stop the database too:
 
-    C:\Users\abdallah\odoo\stop-db.ps1
+    C:\Users\User\odoo\stop-db.ps1
 
 ## VS Code
 
-Open `C:\Users\abdallah\odoo` in VS Code. Press **F5** (or Run and Debug → "Odoo 17") to start the
+Open `C:\Users\User\odoo` in VS Code. Press **F5** (or Run and Debug → "Odoo 17") to start the
 database and Odoo with the debugger attached — click left of a line number in your module
 to set a breakpoint. Use "Odoo 17 (upgrade app_one module)" after changing your module's
 Python files or adding fields. Don't run `start-odoo.ps1` at the same time (both use port 8069).
@@ -31,10 +31,10 @@ Python files or adding fields. Don't run `start-odoo.ps1` at the same time (both
 
 After you change Python files in your module, restart Odoo and upgrade the module:
 
-    C:\Users\abdallah\odoo\start-odoo.ps1 -u app_one
+    C:\Users\User\odoo\start-odoo.ps1 -u app_one
 
 Auto-reload XML/Python changes while developing:
 
-    C:\Users\abdallah\odoo\start-odoo.ps1 -u app_one --dev=all
+    C:\Users\User\odoo\start-odoo.ps1 -u app_one --dev=all
 
 Turn on Developer Mode in Odoo: Settings → scroll down → Activate the developer mode.

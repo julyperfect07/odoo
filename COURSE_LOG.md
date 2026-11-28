@@ -162,7 +162,7 @@ Claude keeps this file up to date: add a new lesson entry at the end after each 
   - `position` can be `after`, `before`, `inside`, `replace` or `attributes`
 - A new XML file in `data` (or a new field) needs `-u app_one`; `--dev=xml` alone doesn't load it
 
-## Lesson 13: Related fields (2026-11-28)
+## Lesson 13: Related fields (`f41b2f3`, 2026-11-28)
 
 - A related field shows a field of a linked record directly on this model:
   - `owner_phone = fields.Char(related="owner_id.phone")`
@@ -177,6 +177,20 @@ Claude keeps this file up to date: add a new lesson entry at the end after each 
 - With `readonly=False` (my code writes `readonly=0`), editing the phone on the property **writes it back to the owner record**, so every property of that owner changes too
 - Add `store=True` if you need to search, group or sort by it
 - Changing a field to a related field is a Python change, so restart with `-u app_one`
+
+## Lesson 14: SQL constraint on the owner (2026-11-28)
+
+- `_sql_constraints = [("unique_name", "unique(name)", "This name exists")]` on `owner`
+  - Each tuple is (constraint name, SQL constraint, error message shown to the user)
+  - PostgreSQL enforces it, and Odoo names it `<table>_<name>`: `owner_unique_name`
+  - It's added to the database during `-u app_one`
+- If records that break it already exist, Odoo can't add it:
+  - The log says `Table 'owner': unable to add constraint 'owner_unique_name' as unique(name)`, as a warning
+  - The module still loads, but nothing is checked
+  - Fix: remove or rename the duplicates, then run `-u app_one` again
+- Compared with `@api.constrains` (Lesson 10):
+  - `_sql_constraints` is checked by the database; a Python constraint is checked by Odoo
+  - A Python constraint only runs on create and write, and never checks the records that already exist
 
 ---
 

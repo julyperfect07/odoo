@@ -178,7 +178,7 @@ Claude keeps this file up to date: add a new lesson entry at the end after each 
 - Add `store=True` if you need to search, group or sort by it
 - Changing a field to a related field is a Python change, so restart with `-u app_one`
 
-## Lesson 14: SQL constraint on the owner (2026-11-28)
+## Lesson 14: SQL constraint on the owner (`64fb0d6`, 2026-11-28)
 
 - `_sql_constraints = [("unique_name", "unique(name)", "This name exists")]` on `owner`
   - Each tuple is (constraint name, SQL constraint, error message shown to the user)
@@ -191,6 +191,22 @@ Claude keeps this file up to date: add a new lesson entry at the end after each 
 - Compared with `@api.constrains` (Lesson 10):
   - `_sql_constraints` is checked by the database; a Python constraint is checked by Odoo
   - A Python constraint only runs on create and write, and never checks the records that already exist
+
+## Lesson 15: Chatter and field tracking (2026-11-28)
+
+- Add `"mail"` to `depends` in the manifest
+- Inherit two mixins on the model: `_inherit = ["mail.thread", "mail.activity.mixin"]`
+  - `_name = "property"` stays, so this extends my own model with the mixins' fields and methods (Odoo allows several parents in a list)
+  - `mail.thread`: messages, followers, tracking
+  - `mail.activity.mixin`: scheduled activities (to-dos, calls, meetings)
+  - Ruff warns `RUF012` about the list; Odoo only reads it once at startup, so silence it with `# noqa: RUF012`
+- Chatter in the form view, after `</sheet>` and inside `<form>`:
+  - `<div class="oe_chatter">` with `<field name="message_follower_ids"/>`, `<field name="activity_ids"/>`, `<field name="message_ids"/>`
+  - Those fields come from the mixins, not from my model
+- `tracking=True` on a field (`description`, `date_availability`; my code writes `tracking=1`) logs every change in the chatter, e.g. `Date Availability: old → new`
+  - Logged only when the record is saved
+- `_description = "Property Record"` gives the model a readable name, which the chatter uses in its messages
+- New mixins and `tracking` are Python changes, so restart with `-u app_one`
 
 ---
 

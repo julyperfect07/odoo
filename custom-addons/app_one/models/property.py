@@ -5,11 +5,13 @@ from odoo import api, fields, models
 
 class property(models.Model):
     _name = "property"
-
+    _description = "Property Record"
+    # odoo supports multiple inheritance
+    _inherit = ["mail.thread", "mail.activity.mixin"]  # noqa: RUF012
     name = fields.Char(required=1, default="New", size=10)
-    description = fields.Text()
+    description = fields.Text(tracking=1)
     postcode = fields.Char(required=1)
-    date_availability = fields.Date()
+    date_availability = fields.Date(tracking=1)
     expected_price = fields.Float()
     selling_price = fields.Float()
     diff = fields.Float(compute="_compute_diff", store=1, readonly=0)

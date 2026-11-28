@@ -43,6 +43,8 @@ class property(models.Model):
         default="draft",
     )
 
+    line_ids = fields.One2many("property.line", "property_id")
+
     _sql_constraints = [  # noqa: RUF012
         # constraint name , constraint(column), error message
         ("unique_name", "unique(name)", "This name exists")
@@ -116,3 +118,11 @@ class property(models.Model):
     #     res = super().unlink()
     #     print("Inside Delete")
     #     return res
+
+
+class PropertyLine(models.Model):
+    _name = "property.line"
+
+    property_id = fields.Many2one("property")
+    area = fields.Float()
+    description = fields.Char()

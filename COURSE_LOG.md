@@ -192,7 +192,7 @@ Claude keeps this file up to date: add a new lesson entry at the end after each 
   - `_sql_constraints` is checked by the database; a Python constraint is checked by Odoo
   - A Python constraint only runs on create and write, and never checks the records that already exist
 
-## Lesson 15: Chatter and field tracking (2026-11-28)
+## Lesson 15: Chatter and field tracking (`3e2c893`, 2026-11-28)
 
 - Add `"mail"` to `depends` in the manifest
 - Inherit two mixins on the model: `_inherit = ["mail.thread", "mail.activity.mixin"]`
@@ -207,6 +207,20 @@ Claude keeps this file up to date: add a new lesson entry at the end after each 
   - Logged only when the record is saved
 - `_description = "Property Record"` gives the model a readable name, which the chatter uses in its messages
 - New mixins and `tracking` are Python changes, so restart with `-u app_one`
+
+## Lesson 16: Notebook with an editable One2many of lines (2026-11-28)
+
+- New model `property.line` (fields `property_id`, `area`, `description`), written in `property.py`
+  - It's a separate top-level class. I first indented it inside `class property` by mistake; a model class must start at the left margin.
+  - Since it's in `property.py`, `models/__init__.py` needs no change
+  - Access row: `access_property_line,...,model_property_line,,1,1,1,1`
+- On `property`: `line_ids = fields.One2many("property.line", "property_id")`
+  - Each line points back to its property through the Many2one `property_id`
+- Form view tabs: `<notebook>` with `<page string="Bedrooms">` inside the `<sheet>`
+- Show the One2many as an inline list: put a `<tree editable="bottom">` inside `<field name="line_ids">`
+  - The tree lists the line model's columns (`description`, `area`)
+  - `editable="bottom"` adds and edits rows right in the list, with no pop-up (`"top"` adds new rows at the top)
+- New model + new field means restart with `-u app_one`; otherwise the browser shows `"property"."line_ids" field is undefined`
 
 ---
 
